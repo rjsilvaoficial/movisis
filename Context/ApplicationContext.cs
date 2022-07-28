@@ -7,8 +7,8 @@ namespace MovisisCadastro.Context
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
 
-        DbSet<Cliente> Clientes { get; set; }
-        DbSet<Cidade> Cidades { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Cidade> Cidades { get; set; }
 
     }
 }

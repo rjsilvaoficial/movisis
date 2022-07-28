@@ -10,12 +10,10 @@ namespace MovisisCadastro.Models
         [Column("ID")]
         public int CidadeId { get; set; }
 
-
-        [Required(ErrorMessage = "Você precisa preencher o Nome!")]
         [Column("NOME")]
-
+        [Required(ErrorMessage = "Você precisa preencher o Nome!")]
+        [RegularExpression(@"^[a-zA-Z]{1,32}\s{0,1}[a-zA-Z]{0,18}$", ErrorMessage = "Nome deve conter apenas letras e espaço (se houver sobrenome)!")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Nome recebe entre 3 e 60 caracteres!")]
-
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "Você precisa preencher a UF!")]
@@ -28,5 +26,3 @@ namespace MovisisCadastro.Models
     }
 }
 
-
-//[RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$", ErrorMessage = "Characters are not allowed.")]
