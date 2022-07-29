@@ -208,7 +208,7 @@ namespace MovisisCadastro.Controllers
 
             try
             {
-                var clienteAtualizado = await _context.Clientes.FirstOrDefaultAsync(cliente => cliente.CidadeId == id);
+                var clienteAtualizado = await _context.Clientes.FirstOrDefaultAsync(cliente => cliente.ClienteId == id);
                 if (clienteAtualizado != null)
                 {
                     _context.Clientes.Remove(clienteAtualizado);
