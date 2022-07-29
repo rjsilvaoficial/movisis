@@ -30,6 +30,7 @@ namespace MovisisCadastro
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
+                //.AddNewtonsoftJson()
                 //Desativação do padrão de exibição de erros ModelStates inválidos
                 .ConfigureApiBehaviorOptions(options =>
                 {

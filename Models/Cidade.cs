@@ -12,13 +12,13 @@ namespace MovisisCadastro.Models
 
         [Column("NOME")]
         [Required(ErrorMessage = "Você precisa preencher o Nome!")]
-        [RegularExpression(@"^[a-zA-Z]{1,32}\s{0,1}[a-zA-Z]{0,18}$", ErrorMessage = "Nome deve conter apenas letras e espaço (se houver sobrenome)!")]
+        [RegularExpression(@"^[a-zA-Z'\s]{3,60}$", ErrorMessage = "Nome deve conter apenas letras e espaço (se houver sobrenome)!")]
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Nome recebe entre 3 e 60 caracteres!")]
         public string Nome { get; set; }
 
         [Column("UF")]
-        [Required(ErrorMessage = "Você precisa preencher a UF!")]
-        [StringLength(2, MinimumLength = 2, ErrorMessage = "UF recebe apenas duas letras!")]
+        [Required(ErrorMessage = "Você precisa preencher a UF com duas letras!")]
+        [RegularExpression(@"^[a-zA-Z]{2}$", ErrorMessage = "Você precisa preencher a UF com duas letras!")]
         public string UF { get; set; }
         public ICollection<Cliente> Clientes { get; set; }
 

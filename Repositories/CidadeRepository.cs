@@ -1,5 +1,9 @@
-﻿using MovisisCadastro.Context;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using MovisisCadastro.Context;
 using MovisisCadastro.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MovisisCadastro.Repositories
@@ -11,14 +15,34 @@ namespace MovisisCadastro.Repositories
         {
             _context = context;
         }
-        public Task<Cidade> BuscarCidade(string nome)
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public Task<Cidade> CriarCidade(Cidade cidade)
+
+
+        public async Task<List<Cidade>> BuscarTodas()
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                return await _context.Cidades.AsNoTracking().ToListAsync();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+
+
+        }   
+        
+        public async Task<List<Cidade>> BuscarSemelhantes(string nome)
+        {
+            try
+            {
+                return await _context.Cidades.Where(cidade => cidade.Nome.Contains(nome.ToUpper())).ToListAsync();
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
         }
     }
 }
+

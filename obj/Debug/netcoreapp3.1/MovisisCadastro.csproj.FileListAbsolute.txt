@@ -58,3 +58,6 @@ C:\Users\robso\Movisis\MovisisCadastro\obj\Debug\netcoreapp3.1\MovisisCadastro.c
 C:\Users\robso\Movisis\MovisisCadastro\obj\Debug\netcoreapp3.1\MovisisCadastro.dll
 C:\Users\robso\Movisis\MovisisCadastro\obj\Debug\netcoreapp3.1\MovisisCadastro.pdb
 C:\Users\robso\Movisis\MovisisCadastro\obj\Debug\netcoreapp3.1\MovisisCadastro.genruntimeconfig.cache
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
