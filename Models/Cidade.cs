@@ -16,11 +16,10 @@ namespace MovisisCadastro.Models
         [StringLength(60, MinimumLength = 3, ErrorMessage = "Nome recebe entre 3 e 60 caracteres!")]
         public string Nome { get; set; }
 
-        [Required(ErrorMessage = "Você precisa preencher a UF!")]
         [Column("UF")]
-        [StringLength(2,ErrorMessage = "UF recebe apenas duas letras!")]
+        [Required(ErrorMessage = "Você precisa preencher a UF!")]
+        [StringLength(2, MinimumLength = 2, ErrorMessage = "UF recebe apenas duas letras!")]
         public string UF { get; set; }
-
         public ICollection<Cliente> Clientes { get; set; }
 
     }
