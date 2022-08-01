@@ -1,4 +1,7 @@
-﻿using System;
+﻿using MovisisCadastro.Services.CustomValidations;
+using MovisisCadastro.ViewModels;
+using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,16 +29,18 @@ namespace MovisisCadastro.Models
         [Column("ID_CIDADE")]
         public int CidadeId { get; set; }
 
-        //public Cidade Cidade { get; set; }
+        public Cidade Cidade { get; set; }
 
         [Required(ErrorMessage = "Você precisa preencher o apelido!")]
         [Column("APELIDO")]
         public string Apelido { get; set; }
 
         [Column("DATA_NASCIMENTO", TypeName = "date")]
-        [Required(ErrorMessage = "Você precisa preencher a data de nascimento!")]
-
+        [JsonConverter(typeof(DataFormatValidationService), "dd-MM-yyyy")]
+        [Required(ErrorMessage = "Data de nascimento deve ser preenchida com dia-mês_ano Ex: 25-12-2000!")]
         public DateTime DataNascimento { get; set; }
 
     }
 }
+
+//^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}$

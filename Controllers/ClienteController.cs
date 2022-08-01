@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MovisisCadastro.Context;
 using MovisisCadastro.Models;
+using MovisisCadastro.Services.Converters;
 using MovisisCadastro.ViewModels;
 using System;
 using System.Linq;
@@ -19,6 +20,8 @@ namespace MovisisCadastro.Controllers
         {
             _context = context;
         }
+
+
 
         [HttpGet]
         [Route("buscartodos")] //Busca todas as cidades
@@ -89,7 +92,7 @@ namespace MovisisCadastro.Controllers
 
             try
             {
-                var clienteVM = await _context.Clientes.FirstOrDefaultAsync(cidade => cidade.Nome == nome.ToUpper());
+                var clienteVM = await _context.Clientes.Include(p=>p.Cidade).FirstOrDefaultAsync(cidade => cidade.Nome == nome.ToUpper());
                 if (clienteVM != null)
                 {
                     var respostaOkVM = new RespostaClienteViewModel(true, $"Cliente {nome.ToUpper()} encontrado, mais detalhes em Data!");
@@ -118,16 +121,17 @@ namespace MovisisCadastro.Controllers
 
         [HttpPost]
         [Route("criar")]
-        public async Task<ActionResult> CriarCliente([FromBody] Cliente cliente)
+        public async Task<ActionResult> CriarCliente([FromBody] ClienteInputViewModel clienteInput)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(new ValidaCampoViewModel(false, "Erro nos valores preenchidos, mais detalhes em Data", ModelState.SelectMany(itens => itens.Value.Errors)
                     .Select(erro => erro.ErrorMessage)));
             }
+            
             try
             {
-                var clienteExistente = await VerificarExistencia(cliente.Nome, cliente.Apelido, cliente.CidadeId, cliente.Telefone, cliente.DataNascimento);
+                var clienteExistente = await VerificarExistencia(clienteInput.Nome, clienteInput.Apelido, clienteInput.CidadeId, clienteInput.Telefone, clienteInput.DataNascimento);
                 if (clienteExistente != null)
                 {
                     var respostaNOKVM = new RespostaClienteViewModel(false, "Este cliente já está cadastrado, mais detalhes em Data!");
@@ -138,11 +142,11 @@ namespace MovisisCadastro.Controllers
                     return UnprocessableEntity(respostaNOKVM);
                 }
 
-                cliente.Nome = cliente.Nome.ToUpper();
-                cliente.Apelido = cliente.Apelido.ToUpper();
+                var cliente = ClientConvertService.CriarClienteDoClienteInput(clienteInput);
+
                 _context.Clientes.Add(cliente);
                 await _context.SaveChangesAsync();
-                var respostaOKVM = new RespostaClienteViewModel(true, $"Cliente {cliente.Nome.ToUpper()} cadastrado com sucesso, mais detalhes em Data!");
+                var respostaOKVM = new RespostaClienteViewModel(true, $"Cliente {cliente.Nome} cadastrado com sucesso, mais detalhes em Data!");
                 respostaOKVM.Data.Add(cliente);
                 return Created("",respostaOKVM);
             }

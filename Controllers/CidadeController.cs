@@ -19,6 +19,9 @@ namespace MovisisCadastro.Controllers
             _context = context;
         }
 
+
+        #region bonus
+
         [HttpGet]
         [Route("buscartodas")] //Busca todas as cidades
         public async Task<ActionResult> BuscarTodas()
@@ -26,7 +29,7 @@ namespace MovisisCadastro.Controllers
             try
             {
 
-                var todasCidades = await _context.Cidades.AsNoTracking().ToListAsync();
+                var todasCidades = await _context.Cidades.Include(c=>c.Clientes).AsNoTracking().ToListAsync();
 
                 if (todasCidades.Count > 0)
                 {
@@ -57,7 +60,7 @@ namespace MovisisCadastro.Controllers
 
             try
             {
-                var cidadeVM = await _context.Cidades.Where(cidade => cidade.Nome.Contains(nome.ToUpper())).ToListAsync();
+                var cidadeVM = await _context.Cidades.Include(c=>c.Clientes).Where(cidade => cidade.Nome.Contains(nome.ToUpper())).ToListAsync();
 
                 if (cidadeVM.Count > 0)
                 {
@@ -74,6 +77,11 @@ namespace MovisisCadastro.Controllers
             }
         }
 
+        #endregion
+
+
+
+
 
         [HttpGet]
         [Route("buscaruma")] //Busca um resultado específico
@@ -88,7 +96,7 @@ namespace MovisisCadastro.Controllers
 
             try
             {
-                var cidadeVM = await _context.Cidades.AsNoTracking().FirstOrDefaultAsync(cidade => cidade.Nome == nome.ToUpper());
+                var cidadeVM = await _context.Cidades.Include(c=>c.Clientes).AsNoTracking().FirstOrDefaultAsync(cidade => cidade.Nome == nome.ToUpper());
                 if (cidadeVM != null)
                 {
                     var respostaOkVM = new RespostaCidadeViewModel(true, $"Cidade {nome.ToUpper()} encontrada, mais detalhes em Data!");
