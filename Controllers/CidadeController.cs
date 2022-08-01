@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MovisisCadastro.Context;
 using MovisisCadastro.Models;
+using MovisisCadastro.Services.Converters;
 using MovisisCadastro.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,60 +23,60 @@ namespace MovisisCadastro.Controllers
 
         #region bonus
 
-        [HttpGet]
-        [Route("buscartodas")] //Busca todas as cidades
-        public async Task<ActionResult> BuscarTodas()
-        {
-            try
-            {
+        //[HttpGet]
+        //[Route("buscartodas")] //Busca todas as cidades
+        //public async Task<ActionResult> BuscarTodas()
+        //{
+        //    try
+        //    {
 
-                var todasCidades = await _context.Cidades.Include(c=>c.Clientes).AsNoTracking().ToListAsync();
+        //        var todasCidades = await _context.Cidades.Include(c=>c.Clientes).AsNoTracking().ToListAsync();
 
-                if (todasCidades.Count > 0)
-                {
-                    var respostaOkVM = new RespostaCidadeViewModel(true, "O campo Data apresentará a lista com todas as cidades cadastradas!");
-                    respostaOkVM.Data.AddRange(todasCidades);
-                    return Ok(respostaOkVM);
-                }
+        //        if (todasCidades.Count > 0)
+        //        {
+        //            var respostaOkVM = new RespostaCidadeViewModel(true, "O campo Data apresentará a lista com todas as cidades cadastradas!");
+        //            respostaOkVM.Data.AddRange(todasCidades);
+        //            return Ok(respostaOkVM);
+        //        }
 
-                return NotFound(new RespostaCidadeViewModel(false, "Nenhum resultado encontrado!"));
-            }
-            catch (SqlException)
-            {
-                return StatusCode(500, new RespostaCidadeViewModel(false, "Servidor indisponível no momento!"));
-            }
+        //        return NotFound(new RespostaCidadeViewModel(false, "Nenhum resultado encontrado!"));
+        //    }
+        //    catch (SqlException)
+        //    {
+        //        return StatusCode(500, new RespostaCidadeViewModel(false, "Servidor indisponível no momento!"));
+        //    }
 
-        }
+        //}
 
 
-        [HttpGet]
-        [Route("buscarsemelhantes")] //Busca todas as cidades dentro de um critério
-        public async Task<ActionResult> BuscarSemelhantes([FromQuery] string nome)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new ValidaCampoViewModel(false, "Erro nos valores preenchidos, mais detalhes em Data!", ModelState.SelectMany(itens => itens.Value.Errors)
-                    .Select(erro => erro.ErrorMessage)));
-            }
+        //[HttpGet]
+        //[Route("buscarsemelhantes")] //Busca todas as cidades dentro de um critério
+        //public async Task<ActionResult> BuscarSemelhantes([FromQuery] string nome)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(new ValidaCampoViewModel(false, "Erro nos valores preenchidos, mais detalhes em Data!", ModelState.SelectMany(itens => itens.Value.Errors)
+        //            .Select(erro => erro.ErrorMessage)));
+        //    }
 
-            try
-            {
-                var cidadeVM = await _context.Cidades.Include(c=>c.Clientes).Where(cidade => cidade.Nome.Contains(nome.ToUpper())).ToListAsync();
+        //    try
+        //    {
+        //        var cidadeVM = await _context.Cidades.Include(c=>c.Clientes).Where(cidade => cidade.Nome.Contains(nome.ToUpper())).ToListAsync();
 
-                if (cidadeVM.Count > 0)
-                {
-                    var respostaOkVM = new RespostaCidadeViewModel(true, $"Encontrada uma ou mais cidades com {nome.ToUpper()} no nome, mais detalhes em Data!");
-                    respostaOkVM.Data.AddRange(cidadeVM);
-                    return Ok(respostaOkVM);
-                }
+        //        if (cidadeVM.Count > 0)
+        //        {
+        //            var respostaOkVM = new RespostaCidadeViewModel(true, $"Encontrada uma ou mais cidades com {nome.ToUpper()} no nome, mais detalhes em Data!");
+        //            respostaOkVM.Data.AddRange(cidadeVM);
+        //            return Ok(respostaOkVM);
+        //        }
                 
-                return NotFound(new RespostaCidadeViewModel(false, "Nenhum resultado encontrado!"));
-            }
-            catch (SqlException)
-            {
-                return StatusCode(500, new RespostaCidadeViewModel(false, "Servidor indisponível no momento!"));
-            }
-        }
+        //        return NotFound(new RespostaCidadeViewModel(false, "Nenhum resultado encontrado!"));
+        //    }
+        //    catch (SqlException)
+        //    {
+        //        return StatusCode(500, new RespostaCidadeViewModel(false, "Servidor indisponível no momento!"));
+        //    }
+        //}
 
         #endregion
 
@@ -122,7 +123,7 @@ namespace MovisisCadastro.Controllers
 
         [HttpPost]
         [Route("criar")]
-        public async Task<ActionResult> CriarCidade([FromBody] Cidade cidade)
+        public async Task<ActionResult> CriarCidade([FromBody] CidadeInputViewModel cidadeInput)
         {
             if (!ModelState.IsValid)
             {
@@ -130,14 +131,12 @@ namespace MovisisCadastro.Controllers
                     .Select(erro => erro.ErrorMessage)));
             }
 
-            cidade.Nome = cidade.Nome.ToUpper();
-            cidade.UF = cidade.UF.ToUpper();
-
             try
             {
-                var cidadeJaExistente = await VerificarExistencia(cidade.Nome, cidade.UF);
+                var cidadeJaExistente = await VerificarExistencia(cidadeInput.Nome, cidadeInput.UF);
                 if (cidadeJaExistente == null)
                 {
+                    var cidade = CidadeConvertService.CriarCidadeDaCidadeInput(cidadeInput);
                     _context.Cidades.Add(cidade);
                     await _context.SaveChangesAsync();
                     var respostaOkVM = new RespostaCidadeViewModel(true, $"Cidade {cidade.Nome.ToUpper()} cadastrada com sucesso, mais detalhes em Data!");
@@ -171,7 +170,7 @@ namespace MovisisCadastro.Controllers
 
             try
             {
-                var cidadeAtualizada = await _context.Cidades.FirstOrDefaultAsync(cidade => cidade.Nome == nomeAtual.ToUpper());
+                var cidadeAtualizada = await _context.Cidades.Include(c=>c.Clientes).FirstOrDefaultAsync(cidade => cidade.Nome == nomeAtual.ToUpper());
                 
                 if (cidadeAtualizada != null)
                 {

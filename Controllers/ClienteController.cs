@@ -21,63 +21,64 @@ namespace MovisisCadastro.Controllers
             _context = context;
         }
 
+        #region bonus
+
+        //[HttpGet]
+        //[Route("buscartodos")] //Busca todas as cidades
+        //public async Task<ActionResult> BuscarTodos()
+        //{
+        //    try
+        //    {
+
+        //        var todosClientes = await _context.Clientes.AsNoTracking().ToListAsync();
+
+        //        if (todosClientes.Count > 0)
+        //        {
+        //            var respostaOkVM = new RespostaClienteViewModel(true, "O campo Data apresentará a lista com todos os clientes cadastrados!");
+        //            respostaOkVM.Data.AddRange(todosClientes);
+        //            return Ok(respostaOkVM);
+        //        }
+
+        //        return NotFound(new RespostaClienteViewModel(false, "Nenhum resultado encontrado!"));
+        //    }
+        //    catch (SqlException)
+        //    {
+        //        return StatusCode(500, new RespostaClienteViewModel(false, "Servidor indisponível no momento!"));
+        //    }
+
+        //}
 
 
-        [HttpGet]
-        [Route("buscartodos")] //Busca todas as cidades
-        public async Task<ActionResult> BuscarTodos()
-        {
-            try
-            {
+        //[HttpGet]
+        //[Route("buscarsemelhantes")] //Busca todos os clientes dentro de um critério
+        //public async Task<ActionResult> BuscarSemelhantes([FromQuery] string nome)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(new ValidaCampoViewModel(false, "Erro nos valores preenchidos, mais detalhes em Data!", ModelState.SelectMany(itens => itens.Value.Errors)
+        //            .Select(erro => erro.ErrorMessage)));
+        //    }
 
-                var todosClientes = await _context.Clientes.AsNoTracking().ToListAsync();
+        //    try
+        //    {
+        //        var clienteVM = await _context.Clientes.Where(cliente => cliente.Nome.Contains(nome.ToUpper())).ToListAsync();
 
-                if (todosClientes.Count > 0)
-                {
-                    var respostaOkVM = new RespostaClienteViewModel(true, "O campo Data apresentará a lista com todos os clientes cadastrados!");
-                    respostaOkVM.Data.AddRange(todosClientes);
-                    return Ok(respostaOkVM);
-                }
+        //        if (clienteVM.Count > 0)
+        //        {
+        //            var respostaOkVM = new RespostaClienteViewModel(true, $"Encontrado um ou mais clientes com {nome.ToUpper()} no nome, mais detalhes em Data!");
+        //            respostaOkVM.Data.AddRange(clienteVM);
+        //            return Ok(respostaOkVM);
+        //        }
 
-                return NotFound(new RespostaClienteViewModel(false, "Nenhum resultado encontrado!"));
-            }
-            catch (SqlException)
-            {
-                return StatusCode(500, new RespostaClienteViewModel(false, "Servidor indisponível no momento!"));
-            }
+        //        return NotFound(new RespostaClienteViewModel(false, "Nenhum resultado encontrado!"));
+        //    }
+        //    catch (SqlException)
+        //    {
+        //        return StatusCode(500, new RespostaClienteViewModel(false, "Servidor indisponível no momento!"));
+        //    }
+        //}
 
-        }
-
-
-        [HttpGet]
-        [Route("buscarsemelhantes")] //Busca todos os clientes dentro de um critério
-        public async Task<ActionResult> BuscarSemelhantes([FromQuery] string nome)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(new ValidaCampoViewModel(false, "Erro nos valores preenchidos, mais detalhes em Data!", ModelState.SelectMany(itens => itens.Value.Errors)
-                    .Select(erro => erro.ErrorMessage)));
-            }
-
-            try
-            {
-                var clienteVM = await _context.Clientes.Where(cliente => cliente.Nome.Contains(nome.ToUpper())).ToListAsync();
-
-                if (clienteVM.Count > 0)
-                {
-                    var respostaOkVM = new RespostaClienteViewModel(true, $"Encontrado um ou mais clientes com {nome.ToUpper()} no nome, mais detalhes em Data!");
-                    respostaOkVM.Data.AddRange(clienteVM);
-                    return Ok(respostaOkVM);
-                }
-
-                return NotFound(new RespostaClienteViewModel(false, "Nenhum resultado encontrado!"));
-            }
-            catch (SqlException)
-            {
-                return StatusCode(500, new RespostaClienteViewModel(false, "Servidor indisponível no momento!"));
-            }
-        }
-
+        #endregion
 
         [HttpGet]
         [Route("buscarum")] //Busca um resultado específico
@@ -177,7 +178,7 @@ namespace MovisisCadastro.Controllers
                     {
                         cliente.Nome = clienteAtualizado.Nome.ToUpper();
                     }
-                    if (clienteAtualizado.Telefone != cliente.Telefone)
+                    if (clienteAtualizado.Telefone != null && clienteAtualizado.Telefone != cliente.Telefone)
                     {
                         cliente.Telefone = clienteAtualizado.Telefone;
                     }
