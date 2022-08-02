@@ -80,6 +80,8 @@ namespace MovisisCadastro.Controllers
 
         #endregion
 
+
+
         [HttpGet]
         [Route("buscarum")] //Busca um resultado específico
         public async Task<ActionResult> BuscarUm([FromQuery] string nome)

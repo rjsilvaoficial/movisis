@@ -119,8 +119,11 @@ C:\Users\robso\Movisis\MovisisCadastro\MovisisCadastro.xml\netcoreapp3.1\runtime
 C:\Users\robso\Movisis\MovisisCadastro\MovisisCadastro.xml\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\robso\Movisis\MovisisCadastro\MovisisCadastro.xml\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\robso\Movisis\MovisisCadastro\MovisisCadastro.xml\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\MovisisCadastro.xml\netcoreapp3.1\appsettings.Development.json
-C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\MovisisCadastro.xml\netcoreapp3.1\appsettings.json
-C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\MovisisCadastro.xml\netcoreapp3.1\MovisisCadastro.deps.json
-C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\MovisisCadastro.xml\netcoreapp3.1\MovisisCadastro.runtimeconfig.dev.json
-C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\MovisisCadastro.xml\netcoreapp3.1\MovisisCadastro.runtimeconfig.json
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\robso\Movisis\MovisisCadastro\obj\Debug\netcoreapp3.1\MovisisCadastro.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\robso\Movisis\MovisisCadastro\bin\Debug\netcoreapp3.1\MovisisCadastro.xml
+C:\Users\robso\Movisis\MovisisCadastro\obj\Debug\netcoreapp3.1\staticwebassets\MovisisCadastro.StaticWebAssets.xml
+C:\Users\robso\Movisis\MovisisCadastro\obj\Debug\netcoreapp3.1\scopedcss\bundle\MovisisCadastro.styles.css

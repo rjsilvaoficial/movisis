@@ -1,15 +1,15 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastro.csproj": {}
+    "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastroApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastro.csproj": {
+    "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastroApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastro.csproj",
-        "projectName": "MovisisCadastro",
-        "projectPath": "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastro.csproj",
+        "projectUniqueName": "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastroApi.csproj",
+        "projectName": "MovisisCadastroApi",
+        "projectPath": "C:\\Users\\robso\\Movisis\\MovisisCadastro\\MovisisCadastroApi.csproj",
         "packagesPath": "C:\\Users\\robso\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\robso\\Movisis\\MovisisCadastro\\obj\\",
         "projectStyle": "PackageReference",

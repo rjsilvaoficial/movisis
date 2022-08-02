@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("MovisisCadastro")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("MovisisCadastroApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("MovisisCadastro")]
-[assembly: System.Reflection.AssemblyTitleAttribute("MovisisCadastro")]
+[assembly: System.Reflection.AssemblyProductAttribute("MovisisCadastroApi")]
+[assembly: System.Reflection.AssemblyTitleAttribute("MovisisCadastroApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.
